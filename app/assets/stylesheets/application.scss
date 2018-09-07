@@ -1,2 +1,6 @@
 @import "./reset";
-
+@import "./side-bar.scss";
+@import "./chat.scss";
+.wrapper {
+  display: flex;
+}
