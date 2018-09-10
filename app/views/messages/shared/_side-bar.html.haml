@@ -1,0 +1,20 @@
+.side-bar
+  .header
+    %h3.header__name
+      = current_user.name
+    %ul.header__lists
+      %li.list
+        = link_to "#" do
+          %i.fa.fa-pencil-square-o.icon
+          / = fa_icon 'pencil-square-o', class: 'icon' (テキスト)
+      %li.list
+        = link_to edit_user_path(current_user) do
+          %i.fa.fa-cog.icon
+          / = fa_icon 'cog', class: 'icon' (テキスト)
+  .groups
+    .group
+      = link_to "#" do
+        .group__name
+          test
+        .group__message
+          test
