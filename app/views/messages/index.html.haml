@@ -1,4 +1,46 @@
 .wrapper
-  = render 'shared/side-bar'
+  .side-bar
+    .header
+      %h3.header__name
+        = current_user.name
+      %ul.header__lists
+        %li.list
+          = link_to new_group_path do
+            %i.fa.fa-pencil-square-o.icon
+            / = fa_icon 'pencil-square-o', class: 'icon' (テキスト)
+        %li.list
+          = link_to edit_user_path(current_user) do
+            %i.fa.fa-cog.icon
+            / = fa_icon 'cog', class: 'icon' (テキスト)
+    .groups
+      - current_user.groups.each do |group|
+        .group
+          = link_to group_messages_path(group) do
+            .group__name
+              = group.name
+            .group__message
+              メッセージはまだありません。
+  .chat
+    .header
+      .left-header
+        .left-header__title
+          test
+        %ul.left-header__members
+          Member:
+          %li.member
+            test
+      .right-header
+        = link_to "Edit", "#", class: 'right-header__button'
+    .messages
+      = render @messages
+    .form
+      = form_for [@group, @message] do |f|
+        = f.text_field :content, class: 'form__message', placeholder: 'type a message'
+        .form__mask
+          = f.label :image, class: 'form__mask__image' do
+            %i.fa.fa-picture-o.icon
+              / =fa_icon 'picture-o', class: 'icon' (テキスト)
+            %input.hidden{type: "file"}
+              / = f.file_field :image, class: 'hidden' (テキスト)
+        = f.submit 'Send', class: 'form__submit'
 
-  = render 'shared/chat'
