@@ -40,9 +40,9 @@
         = f.text_field :content, class: 'form__message', placeholder: 'type a message'
         .form__mask
           = f.label :image, class: 'form__mask__image' do
-            %i.fa.fa-picture-o.icon
-              / =fa_icon 'picture-o', class: 'icon' (テキスト)
-            %input.hidden{type: "file"}
-              / = f.file_field :image, class: 'hidden' (テキスト)
+            / %i.fa.fa-picture-o.icon (自分で作ったやつ)
+            =fa_icon 'picture-o', class: 'icon'
+            / %input.hidden{type: "file"} (自分で作ったやつ)
+            = f.file_field :image, class: 'hidden'
         = f.submit 'Send', class: 'form__submit'
 
