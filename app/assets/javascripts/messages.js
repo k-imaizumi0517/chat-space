@@ -45,6 +45,33 @@ $(function() {
         alert('error');
       });
     });
+
+    setInterval(function() {
+      $.ajax({
+        url: location.href,
+        type: 'GET',
+        dataType: 'json'
+      })
+      .done(function() {
+
+      })
+      .fail(function() {
+
+      });
+    });
+
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
