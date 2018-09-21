@@ -1,13 +1,11 @@
 $(function() {
   $(document).on('turbolinks:load', function() {
     function buildHTML(message) {
-      if (message.image == null) {
-        message.image = ""
-      }
-      var html = `<div class="message">
+      var image = (message.image) ? `<img class="lower-message__image" src="${message.image}">` : "";
+      var html = `<div class="message" data-message-id="${message.id}">
                     <div class="upper-message">
                       <div class="upper-message__user-name">
-                        ${message.user_name}
+                        ${message.name}
                       </div>
                       <div class="upper-message__date">
                         ${message.created_at}
@@ -17,7 +15,7 @@ $(function() {
                       <p class="lower-message__content">
                         ${message.content}
                       </p>
-                      <img src="${message.image}" class="lower-message__image">
+                      ${image}
                     </div>
                   </div>`
       return html;
@@ -46,20 +44,33 @@ $(function() {
       });
     });
 
-    setInterval(function() {
-      $.ajax({
-        url: location.href,
-        type: 'GET',
-        dataType: 'json'
-      })
-      .done(function() {
-
-      })
-      .fail(function() {
-
-      });
-    });
-
+    var interval = setInterval(function() {
+      if (window.location.href.match(/\/groups\/\d+\/messages/)) {
+        $.ajax({
+          url: location.href,
+          type: 'GET',
+          dataType: 'json'
+        })
+        .done(function(data) {
+          var id = $('.message:last').data('messageId');
+          var insertHTML = '';
+          data.messages.forEach(function(message) {
+            if (message.id > id) {
+              insertHTML += buildHTML(message);
+            }
+          });
+          $('.messages').append(insertHTML);
+          if (insertHTML) {
+            $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+          }
+        })
+        .fail(function(data) {
+          alert('自動更新に失敗しました');
+        });
+      } else {
+        clearInterval(interval);
+      }
+    }, 5 * 1000 );
   });
 });
 
