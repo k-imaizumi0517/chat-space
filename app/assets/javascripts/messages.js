@@ -44,7 +44,11 @@ $(function() {
       });
     });
 
-    var interval = setInterval(function() {
+    $(function(){
+      setInterval(update, 5000);
+    });
+
+    function update() {
       if (window.location.href.match(/\/groups\/\d+\/messages/)) {
         $.ajax({
           url: location.href,
@@ -60,29 +64,45 @@ $(function() {
             }
           });
           $('.messages').append(insertHTML);
-          if (insertHTML) {
-            $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
-          }
+          // if (insertHTML) {
+          $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+          // }
         })
         .fail(function(data) {
           alert('自動更新に失敗しました');
         });
       } else {
-        clearInterval(interval);
+        clearInterval(setInterval);
       }
-    }, 5 * 1000 );
+    };
+
+    // 最初の回答
+    // var interval = setInterval(function() {
+    //   if (window.location.href.match(/\/groups\/\d+\/messages/)) {
+    //     $.ajax({
+    //       url: location.href,
+    //       type: 'GET',
+    //       dataType: 'json'
+    //     })
+    //     .done(function(data) {
+    //       var id = $('.message:last').data('messageId');
+    //       var insertHTML = '';
+    //       data.messages.forEach(function(message) {
+    //         if (message.id > id) {
+    //           insertHTML += buildHTML(message);
+    //         }
+    //       });
+    //       $('.messages').append(insertHTML);
+    //       if (insertHTML) {
+    //         $('.messages').animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
+    //       }
+    //     })
+    //     .fail(function(data) {
+    //       alert('自動更新に失敗しました');
+    //     });
+    //   } else {
+    //     clearInterval(interval);
+    //   }
+    // }, 5 * 1000 );
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
