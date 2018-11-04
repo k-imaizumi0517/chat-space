@@ -251,6 +251,7 @@ GEM
     ruby-progressbar (1.10.0)
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
+    rufo (0.3.1)
     sass (3.5.7)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -337,6 +338,7 @@ DEPENDENCIES
   rails-controller-testing
   rspec-rails (~> 3.5)
   rubocop
+  rufo
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

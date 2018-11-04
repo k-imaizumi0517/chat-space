@@ -78,6 +78,6 @@ group :development, :test do
 end
 
 gem 'fog-aws'
-
+gem 'rufo'
 
 
